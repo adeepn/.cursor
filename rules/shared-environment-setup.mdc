@@ -1,5 +1,6 @@
 ---
-alwaysApply: true
+tags: ["environment", "setup", "dependencies"]
+globs: ["**/package.json", "**/requirements*.txt", "**/Cargo.toml", "**/go.mod", "**/Gemfile", "**/.env*", "**/docker-compose.yml", "**/Dockerfile"]
 ---
 # Environment Setup
 
@@ -17,7 +18,6 @@ Never use system-wide installations for project dependencies.
 
 **Environment managers by ecosystem:**
 - Use language-specific environment managers
-- Examples: virtual environments, version managers, environment tools
 - Follow ecosystem best practices
 - Document which tools to use in project README
 
@@ -57,7 +57,6 @@ When AI assists with environment setup, always confirm with user first.
 - User confirms directory locations
 - User chooses between alternative tools
 - User approves configuration values
-- Never assume preferences
 
 ## Dependency Management
 
@@ -143,7 +142,6 @@ Configure build systems for different targets and environments.
 - Include debug symbols
 - Enable development features
 - Detailed error messages
-- No aggressive optimization
 
 **Production builds:**
 - Optimize for performance and size
@@ -172,7 +170,7 @@ Manage database schema and data safely.
 
 **Migration best practices:**
 - One migration per logical change
-- Test migrations up AND down (forward and rollback)
+- Test migrations up AND down
 - Backup before production migrations
 - Plan rollback procedures
 - Review migrations before applying
@@ -222,7 +220,6 @@ Optimize for fast feedback and productivity.
 - Structured logging when debugger unavailable
 - Learn debugging tools specific to your stack
 - Reproduce issues locally before fixing
-- Remove debug code before committing
 
 **Environment parity:**
 - Development environment mirrors production
@@ -246,13 +243,6 @@ For multi-platform or multi-device projects.
 - Document toolchain setup for each platform
 - Version all platform tools
 - Test builds for all targets regularly
-
-**Testing across platforms:**
-- Test on actual target platforms
-- Emulators/simulators for development
-- Real hardware for final validation
-- Platform-specific test suites
-- CI/CD builds all targets
 
 **Code organization:**
 - Shared code + platform-specific code

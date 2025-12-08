@@ -1,5 +1,6 @@
 ---
-alwaysApply: true
+tags: ["rules", "cursor"]
+globs: [".cursor/rules/**/*.mdc"]
 ---
 # Rules Management
 
@@ -149,12 +150,6 @@ Create only what your project needs.
 - Reference shared rules: "Follow security testing guidelines from shared-security-practices.mdc"
 - Reference local rules: "See local-architecture.mdc for service boundaries"
 - Don't copy-paste guidelines from other rule files
-
-**Identifying redundancy:**
-- Same guideline appears in multiple local rule files
-- Local rule repeats what shared rule already covers
-- One rule explains another rule's core responsibility
-- Content could be removed without losing meaning
 
 **Resolving duplication in local rules:**
 - Keep guideline in most relevant local file only

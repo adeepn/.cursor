@@ -1,5 +1,6 @@
 ---
-alwaysApply: true
+tags: ["rules", "guidelines"]
+globs: ["rules/**/*.mdc"]
 ---
 # Shared Rules File Guidelines
 

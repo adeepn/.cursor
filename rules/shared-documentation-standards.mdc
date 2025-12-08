@@ -1,5 +1,6 @@
 ---
-alwaysApply: true
+tags: ["documentation", "docs"]
+globs: ["**/*.md", "**/docs/**/*", "**/README*", "**/CHANGELOG*"]
 ---
 # Documentation Standards
 
@@ -44,11 +45,8 @@ Documentation and cursor rules serve different audiences and purposes.
 **Write flexible documentation:**
 - Focus on principles and patterns
 - Avoid implementation details that change frequently
-- **Avoid specific quantities:**
-  - Don't mention exact numbers of files, commands, tests
-  - Don't mention percentages that can change
-  - Don't mention version numbers that update
-  - Use relative terms: "many", "several", "comprehensive"
+- Avoid specific quantities (exact numbers, percentages, versions)
+- Use relative terms: "many", "several", "comprehensive"
 - Document WHY, not just WHAT
 - Make documentation age well
 
@@ -79,7 +77,7 @@ Add comments that provide value.
 - Security-sensitive code
 
 **What to explain:**
-- **WHY, not WHAT** - code shows what, comments explain why
+- WHY, not WHAT - code shows what, comments explain why
 - Context for decisions made
 - Tradeoffs considered
 - Edge cases handled

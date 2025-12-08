@@ -1,5 +1,6 @@
 ---
-alwaysApply: true
+tags: ["code-quality", "standards", "design"]
+globs: ["**/*.{py,js,ts,jsx,tsx,go,rs,c,cpp,h,hpp,java,rb,php,swift,kt}"]
 ---
 # Code Quality
 
@@ -77,7 +78,7 @@ Use clear, consistent, descriptive names following your language and framework c
 - Avoid abbreviations unless standard in your domain
 - Use pronounceable names
 - Be consistent across codebase
-- **Follow language/framework naming conventions**
+- Follow language/framework naming conventions
 
 **Follow your language conventions for:**
 - Case style (camelCase, snake_case, PascalCase, kebab-case)
@@ -140,7 +141,7 @@ Comment what and why, not how.
 - Important constraints or assumptions
 
 **What to avoid:**
-- Stating the obvious ("increment i")
+- Stating the obvious
 - Commenting what code already shows
 - Leaving commented-out code
 - Outdated or misleading comments
