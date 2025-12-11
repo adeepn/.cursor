@@ -1,5 +1,6 @@
 ---
-alwaysApply: true
+tags: ["workflow", "planning", "development"]
+globs: ["**/*"]
 ---
 # Development Workflow
 
@@ -19,8 +20,7 @@ Development patterns for all phases of project work.
 - Consider team expertise and learning curve
 - Evaluate community support and ecosystem
 - Ask user to choose, don't dictate solutions
-- Discuss tradeoffs openly and honestly
-- Help user make informed decisions based on their context
+- Help user make informed decisions
 
 **Architectural patterns:**
 - Monolith vs microservices vs modular
@@ -33,11 +33,11 @@ Development patterns for all phases of project work.
 - Consider team expertise and available support
 - Evaluate community ecosystem and tooling maturity
 - Use latest stable versions, not bleeding edge
-- Balance innovation with stability and maintainability
+- Balance innovation with stability
 - Document technology choices and rationale
 
 **Performance and scalability:**
-- Identify performance targets early based on requirements
+- Identify performance targets early
 - Plan caching strategy where appropriate
 - Consider data storage and access patterns
 - Design for horizontal scaling if growth expected
@@ -46,17 +46,16 @@ Development patterns for all phases of project work.
 
 **Project structure:**
 - Suggest organization patterns based on project type
-- Follow framework/platform best practices where they exist
-- Separate concerns clearly (business logic, UI, data access)
+- Follow framework/platform best practices
+- Separate concerns clearly
 - Make navigation intuitive for new developers
-- Document structure decisions and rationale
+- Document structure decisions
 
 **Platform abstraction (multi-platform):**
 - Design abstraction layer for hardware differences
 - Separate platform-specific from shared code
 - Prefer abstraction over conditional compilation
 - Organize: common/ + platform directories
-- Build system for multiple targets
 
 ## Workflow First Step: Branch Management
 
@@ -64,18 +63,18 @@ Development patterns for all phases of project work.
 
 1. **Check current branch:**
    - If on protected branch (master, main, dev, develop):
-     - Automatically create feature branch with appropriate type (see [Branch Naming](shared-version-control.mdc#branch-naming) for type selection)
+     - Automatically create feature branch
      - Inform user: "Created feature branch: `<branch-name>`"
    - If already on feature branch:
-     - Acknowledge in plan: "Using existing feature branch: `<branch-name>`"
-     - Continue with this branch for current work
+     - Acknowledge: "Using existing feature branch: `<branch-name>`"
+     - Continue with this branch
 
 2. **Document in plan:**
-   - Make branch creation/acknowledgment the **FIRST** step
+   - Make branch creation/acknowledgment the FIRST step
    - Show branch name clearly
    - Never skip this step
 
-**Branch type selection:** See [branch type selection logic](shared-version-control.mdc#branch-management) in shared-version-control.mdc
+**Branch type selection:** See shared-version-control.mdc for branch naming conventions
 
 **This ensures:**
 - Protected branches never receive direct commits
@@ -99,8 +98,8 @@ Development patterns for all phases of project work.
 - Design data models first
 - Plan API contracts and interfaces
 - Sketch UI/UX for user-facing features
-- **Suggest implementation approaches with tradeoffs**
-- **Discuss alternatives and let user choose direction**
+- Suggest implementation approaches with tradeoffs
+- Discuss alternatives and let user choose direction
 - Review with stakeholders
 - Document decisions and rationale
 
@@ -163,10 +162,10 @@ Development patterns for all phases of project work.
 - Preparing for new features
 
 **Choose refactoring strategy:**
-- **Suggest multiple refactoring approaches**
-- **Discuss benefits and risks of each approach**
-- **Consider impact on existing code and team**
-- **Let user decide on refactoring scope and timing**
+- Suggest multiple refactoring approaches
+- Discuss benefits and risks of each approach
+- Consider impact on existing code and team
+- Let user decide on refactoring scope and timing
 
 **How to refactor safely:**
 - Have good test coverage first
@@ -183,7 +182,7 @@ Development patterns for all phases of project work.
 - Reduce coupling, increase cohesion
 
 **Document refactoring:**
-- Explain why refactoring was needed and approach chosen
+- Explain why refactoring was needed
 - Update related documentation
 
 ## Performance Optimization
@@ -198,10 +197,10 @@ Development patterns for all phases of project work.
 - Profile in realistic conditions
 
 **Choose optimization strategy:**
-- **Suggest multiple optimization approaches**
-- **Explain tradeoffs: complexity vs speed, memory vs time**
-- **Discuss implementation effort and impact**
-- **Let user choose which optimizations to pursue**
+- Suggest multiple optimization approaches
+- Explain tradeoffs: complexity vs speed, memory vs time
+- Discuss implementation effort and impact
+- Let user choose which optimizations to pursue
 
 **Optimization approach:**
 - Fix biggest bottleneck first
@@ -233,7 +232,6 @@ Development patterns for all phases of project work.
 - High-impact, frequently-touched code first
 - Balance new features with debt reduction
 - Allocate regular time for debt work
-- Include in sprint/iteration planning
 - Make small, incremental improvements
 - Prevent new debt through code review
 

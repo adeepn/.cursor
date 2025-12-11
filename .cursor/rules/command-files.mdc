@@ -1,5 +1,6 @@
 ---
-alwaysApply: true
+tags: ["commands", "guidelines"]
+globs: ["commands/**/*.md"]
 ---
 # Command File Guidelines
 

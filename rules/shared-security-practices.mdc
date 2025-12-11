@@ -1,5 +1,6 @@
 ---
-alwaysApply: true
+tags: ["security", "auth", "validation"]
+globs: ["**/auth/**/*", "**/security/**/*", "**/*auth*", "**/*security*"]
 ---
 # Security Practices
 
@@ -33,7 +34,6 @@ Never commit secrets or expose credentials.
 **Never log secrets:**
 - Sanitize logs to remove sensitive data
 - Be careful with debug logs
-- Review logging before production
 - Monitor for accidental secret exposure
 
 ## Input Validation
@@ -51,7 +51,6 @@ Validate all external inputs to prevent security vulnerabilities.
 - Use allowlists over blocklists
 - Define what's valid, reject everything else
 - Validate semantic meaning, not just format
-- Consider context-specific validation
 - Use language/framework validation features
 
 **Common input sources:**
@@ -66,7 +65,6 @@ Validate all external inputs to prevent security vulnerabilities.
 - Check bounds and constraints
 - Prevent injection attacks (parameterized queries, escaping)
 - Sanitize when necessary
-- Never trust, always verify
 
 ## Authentication and Authorization
 
@@ -98,7 +96,6 @@ Implement secure access control.
 - Use appropriate hashing/encryption for credentials
 - Never store credentials in plaintext
 - Secure credential transmission
-- Implement secure recovery mechanisms
 
 ## Error Handling and Logging
 
@@ -119,7 +116,7 @@ Handle errors securely and log appropriately.
 - Include timestamp, user, action, result
 
 **Structured logging:**
-- Use structured log format for easier analysis
+- Use structured log format
 - Include context (user, session, request ID)
 - Different log levels (debug, info, warn, error)
 - Don't log sensitive data (passwords, tokens, PII)
@@ -129,7 +126,6 @@ Handle errors securely and log appropriately.
 - Alert on suspicious activity
 - Track failed login attempts
 - Detect unusual access patterns
-- Respond to security events promptly
 
 ## Secure Configuration
 
@@ -147,7 +143,6 @@ Configure systems securely by default.
 - Enforce secure protocols
 - Validate certificates/signatures
 - Authenticate communication endpoints
-- Prevent man-in-the-middle attacks
 
 **Access control:**
 - Principle of least privilege
@@ -155,12 +150,6 @@ Configure systems securely by default.
 - Regularly review permissions
 - Remove unnecessary access
 - Audit access changes
-
-**Secure defaults:**
-- Security features enabled by default
-- Require explicit action to weaken security
-- Fail securely when errors occur
-- Minimize attack surface
 
 ## Dependency Security
 
@@ -174,7 +163,7 @@ Keep dependencies secure and up to date.
 
 **Keep updated:**
 - Regular dependency updates
-- Test after updating
+- Test thoroughly after updates
 - Security patches applied promptly
 - Balance updates with stability
 
@@ -253,15 +242,14 @@ Include security testing in development process.
 - Dependency vulnerability scanning
 - Static code analysis for security issues
 - Regular automated scans
-- Manual review supplements automation
 
 ## Platform-Specific Security
 
 Security practices vary by platform. Create local security rules for your project type.
 
 **Examples (create only what you need):**
-- Web services: `local-web-security.mdc` (XSS, CSRF, SQL injection, HTTPS, security headers)
-- Embedded systems: `local-firmware-security.mdc` (secure boot, buffer overflow prevention, hardware attacks)
-- Mobile apps: `local-mobile-security.mdc` (jailbreak detection, secure storage, certificate pinning)
+- Web services: `local-web-security.mdc` (XSS, CSRF, SQL injection, HTTPS, headers)
+- Embedded systems: `local-firmware-security.mdc` (secure boot, buffer overflow, hardware)
+- Mobile apps: `local-mobile-security.mdc` (jailbreak detection, secure storage, pinning)
 
 Universal security principles apply everywhere, but implementation details are platform-specific.

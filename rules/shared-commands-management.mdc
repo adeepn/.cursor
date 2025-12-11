@@ -1,5 +1,6 @@
 ---
-alwaysApply: true
+tags: ["commands", "workflow"]
+globs: ["commands/**/*.md"]
 ---
 # Commands Management
 
@@ -28,19 +29,19 @@ This structure ensures consistency and clarity across all commands.
 
 ## Writing Style
 
-### Be Concise
+**Be Concise:**
 - Use bullet points, not paragraphs
 - One action per line
 - Remove verbose explanations
 - Direct and clear instructions
 
-### Be Specific
+**Be Specific:**
 - Include exact commands for project tools/frameworks
 - Reference specific files or tools used in your project
 - Use concrete examples, not generic advice
-- **Can reference concrete tech stack** (unlike shared rules which must be universal)
+- Can reference concrete tech stack (unlike shared rules which must be universal)
 
-### Be Actionable
+**Be Actionable:**
 - Start bullets with verbs (Build, Deploy, Test, Run, Configure, Check)
 - Focus on outcomes, not process details
 - Make each step clear and executable
@@ -81,7 +82,7 @@ Brief description of what this command does and when to use it.
 
 For projects with multiple modules, platforms, or components, create module-specific commands.
 
-### Naming Convention
+**Naming Convention:**
 
 Include module/platform context in command names:
 
@@ -108,7 +109,7 @@ Include module/platform context in command names:
 
 Choose naming depth based on project complexity.
 
-### Cross-Module Workflows
+**Cross-Module Workflows:**
 
 Document workflows that span multiple modules:
 - `integration-test.md` - Test frontend + backend integration
