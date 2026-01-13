@@ -1,0 +1,257 @@
+---
+tags: ["workflow", "planning", "development"]
+globs: ["**/*"]
+---
+# Development Workflow
+
+Development patterns for all phases of project work.
+
+## Initial Architecture Planning
+
+**Understand requirements:**
+- Key requirements, constraints, and success criteria
+- Expected scale and growth trajectory
+- Users and primary use cases
+- Time and resource constraints
+
+**Suggest options with tradeoffs:**
+- Present multiple frameworks/approaches with pros and cons
+- Explain benefits and limitations of each option
+- Consider team expertise and learning curve
+- Evaluate community support and ecosystem
+- Ask user to choose, don't dictate solutions
+- Help user make informed decisions
+
+**Architectural patterns:**
+- Monolith vs microservices vs modular
+- Consider team size and experience
+- Start simple, evolve deliberately
+- Document architectural decisions
+
+**Technology stack selection:**
+- Choose based on requirements and constraints, not trends
+- Consider team expertise and available support
+- Evaluate community ecosystem and tooling maturity
+- Use latest stable versions, not bleeding edge
+- Balance innovation with stability
+- Document technology choices and rationale
+
+**Performance and scalability:**
+- Identify performance targets early
+- Plan caching strategy where appropriate
+- Consider data storage and access patterns
+- Design for horizontal scaling if growth expected
+- Don't over-engineer for imaginary scale problems
+- Balance current needs with future flexibility
+
+**Project structure:**
+- Suggest organization patterns based on project type
+- Follow framework/platform best practices
+- Separate concerns clearly
+- Make navigation intuitive for new developers
+- Document structure decisions
+
+**Platform abstraction (multi-platform):**
+- Design abstraction layer for hardware differences
+- Separate platform-specific from shared code
+- Prefer abstraction over conditional compilation
+- Organize: common/ + platform directories
+
+## Workflow First Step: Branch Management
+
+**ALWAYS start every plan with branch check:**
+
+1. **Check current branch:**
+   - If on protected branch (master, main, dev, develop):
+     - Automatically create feature branch
+     - Inform user: "Created feature branch: `<branch-name>`"
+   - If already on feature branch:
+     - Acknowledge: "Using existing feature branch: `<branch-name>`"
+     - Continue with this branch
+
+2. **Document in plan:**
+   - Make branch creation/acknowledgment the FIRST step
+   - Show branch name clearly
+   - Never skip this step
+
+**Branch type selection:** See shared-version-control.mdc for branch naming conventions
+
+**This ensures:**
+- Protected branches never receive direct commits
+- Multiple plans in one session use correct branch
+- Branch context is always clear
+- Each plan is self-documenting about branch state
+
+## Feature Development
+
+**Start with branch (see Workflow First Step section):**
+- Ensure feature branch is created or acknowledged as first plan step
+
+**Requirements gathering:**
+- Understand user needs and problem
+- Identify integration points
+- Consider edge cases and errors
+- Define success criteria
+- Clarify ambiguities before starting
+
+**Design before code:**
+- Design data models first
+- Plan API contracts and interfaces
+- Sketch UI/UX for user-facing features
+- Suggest implementation approaches with tradeoffs
+- Discuss alternatives and let user choose direction
+- Review with stakeholders
+- Document decisions and rationale
+
+**Break down work:**
+- Split into small, testable increments
+- Integrate frequently
+- Make progress visible
+- Adjust based on learnings
+
+**Test-driven approach:**
+- Write tests alongside code
+- Test critical paths first
+- Include edge cases and errors
+- Security tests for auth and validation
+
+**Backward compatibility:**
+- Consider existing users
+- Plan migration paths for breaking changes
+- Version APIs appropriately
+- Communicate changes clearly
+
+**Documentation:**
+- Document design decisions
+- Update API/interface docs
+- Include usage examples
+- Note technical debt
+
+## Bug Fixing & Troubleshooting
+
+**Start with branch (see Workflow First Step section):**
+- Ensure feature branch is created or acknowledged as first plan step
+
+**Investigation:**
+- Reproduce bug reliably
+- Identify root cause, not symptoms
+- Check for similar issues elsewhere
+- Document findings and impact
+
+**Fix approach:**
+- Make smallest change that fixes issue
+- Consider backward compatibility
+- Write test that catches the bug
+- Verify fix doesn't break other functionality
+
+**Communication:**
+- Document cause in commit message
+- Update relevant documentation
+- Notify stakeholders if user-facing
+- Share learnings with team
+
+## Refactoring
+
+**Start with branch (see Workflow First Step section):**
+- Ensure feature branch is created or acknowledged as first plan step
+
+**When to refactor:**
+- Code hard to understand or maintain
+- Duplication is widespread
+- Changes getting progressively harder
+- Preparing for new features
+
+**Choose refactoring strategy:**
+- Suggest multiple refactoring approaches
+- Discuss benefits and risks of each approach
+- Consider impact on existing code and team
+- Let user decide on refactoring scope and timing
+
+**How to refactor safely:**
+- Have good test coverage first
+- Make small, incremental changes
+- Refactor one thing at a time
+- Keep tests passing throughout
+- No behavior changes during refactoring
+
+**Common patterns:**
+- Extract methods/functions
+- Consolidate duplication (DRY)
+- Simplify complex conditionals
+- Improve naming
+- Reduce coupling, increase cohesion
+
+**Document refactoring:**
+- Explain why refactoring was needed
+- Update related documentation
+
+## Performance Optimization
+
+**Start with branch (see Workflow First Step section):**
+- Ensure feature branch is created or acknowledged as first plan step
+
+**Before optimizing:**
+- Measure first, never guess
+- Identify issues with profiling
+- Set clear targets
+- Profile in realistic conditions
+
+**Choose optimization strategy:**
+- Suggest multiple optimization approaches
+- Explain tradeoffs: complexity vs speed, memory vs time
+- Discuss implementation effort and impact
+- Let user choose which optimizations to pursue
+
+**Optimization approach:**
+- Fix biggest bottleneck first
+- Measure impact of each change
+- Don't over-optimize prematurely
+
+**Common strategies:**
+- Caching with invalidation strategy
+- Database query optimization
+- Lazy loading and deferred execution
+- Batch operations
+- Async/parallel processing
+- Algorithm improvements
+
+**Verify improvements:**
+- Benchmark before and after
+- Test under realistic load
+- Verify correctness maintained
+
+## Technical Debt Management
+
+**Identify debt:**
+- Document shortcuts and quick fixes
+- Note areas needing improvement
+- Track in issues or backlog
+- Prioritize by pain and risk
+
+**Prioritize and address:**
+- High-impact, frequently-touched code first
+- Balance new features with debt reduction
+- Allocate regular time for debt work
+- Make small, incremental improvements
+- Prevent new debt through code review
+
+## Code Review & Collaboration
+
+Brief collaboration guidance (detailed in shared-version-control).
+
+**Focus on:**
+- Functionality correctness and completeness
+- Code quality and maintainability
+- Test coverage adequacy
+- Security implications
+- Performance considerations
+- Knowledge sharing and learning
+
+**Collaborative approach:**
+- Give constructive, specific feedback
+- Explain reasoning behind suggestions
+- Appreciate good work and improvements
+- Discuss alternatives and tradeoffs
+- Learn from each other's approaches
+
+**See shared-version-control.mdc for detailed code review practices.**

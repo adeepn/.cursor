@@ -1,0 +1,311 @@
+---
+tags: ["git", "workflow", "collaboration"]
+globs: ["**/*"]
+---
+# Version Control
+
+Git workflow and collaboration standards.
+
+## ⛔ PROTECTED BRANCHES POLICY - CRITICAL
+
+**NEVER COMMIT OR PUSH DIRECTLY TO PROTECTED BRANCHES:**
+- `master` / `main`
+- `dev` / `develop`
+
+**ALWAYS use feature branches and pull requests.**
+
+### Before Every Commit
+
+1. Check current branch: `git branch --show-current`
+2. If on protected branch → create feature branch immediately
+3. If on feature branch → proceed with work
+
+### Mandatory Workflow
+
+```bash
+# 1. Create feature branch
+git checkout -b feature/your-feature-name
+
+# 2. Work and commit
+git add .
+git commit -m "type(scope): description"
+
+# 3. Push feature branch
+git push origin feature/your-feature-name
+
+# 4. Create PR (never merge directly)
+gh pr create --base master
+```
+
+### If Accidentally Committed to Protected Branch
+
+```bash
+# Before push - undo commit
+git reset --soft HEAD~1
+git checkout -b feature/fix-name
+git commit -m "type(scope): description"
+```
+
+## Commit Message Standards
+
+Use conventional commits for clarity and consistency.
+
+**Format:** `type(scope): description`
+
+**Types:**
+- `feat` - New feature
+- `fix` - Bug fix
+- `docs` - Documentation
+- `style` - Formatting
+- `refactor` - Code refactoring
+- `test` - Tests
+- `perf` - Performance
+- `build` - Build system changes
+- `ci` - CI/CD configuration
+- `chore` - Maintenance
+
+**Best practices:**
+- Clear and concise description
+- Use present tense
+- Describe what and why
+- Reference issue numbers when applicable
+
+**Examples:**
+- `feat(auth): add OAuth login`
+- `fix(api): handle null database response`
+- `refactor(parser): simplify token handling`
+- `ci(esp32): add parallel test matrix`
+
+**Cursor rules and commands (`.cursor/`):**
+- Scope: `cursor-rules` for rules, `cursor-cmd` for commands
+- Examples:
+  - `feat(cursor-rules): add testing standards`
+  - `fix(cursor-cmd): update sync command`
+
+**Multi-platform/module projects:**
+- Scope: platform, module, or subsystem name
+- Examples:
+  - `feat(esp32): add WiFi driver`
+  - `fix(backend/api): handle timeout`
+
+## Branch Naming
+
+Use consistent, descriptive branch names.
+
+**Pattern:** `type/description`
+
+**Branch types:**
+- `feature/` - New features or functionality
+- `bugfix/` - Bug fixes and corrections
+- `hotfix/` - Critical production fixes (urgent)
+- `refactor/` - Code restructuring
+- `perf/` - Performance improvements
+
+**Examples:**
+- `feature/user-authentication`
+- `bugfix/login-error-handling`
+- `hotfix/critical-memory-leak`
+
+**Guidelines:**
+- Lowercase with hyphens
+- Descriptive but concise
+- Include issue number when applicable
+
+## Git Workflow
+
+**Branch and commit:**
+- Create feature branches from main branch
+- Commit early and often
+- Keep commits atomic (one logical change)
+- Write meaningful commit messages
+- Each commit should work (build and pass tests)
+
+**Stay synchronized:**
+- Pull latest changes before starting work
+- Sync with main branch regularly
+- Resolve conflicts promptly
+- Push changes to remote regularly
+
+**Never commit:**
+- Secrets or credentials
+- Generated files (unless necessary)
+- Personal IDE configurations
+- Large binary files (use Git LFS if needed)
+- Sensitive data
+
+**Merge conflicts:**
+- Communicate with affected developers
+- Understand both sides
+- Test thoroughly after resolution
+- Commit resolution separately
+
+## Merge Strategy
+
+**Before merging:**
+- All tests pass
+- Code review approved
+- No merge conflicts
+- CI/CD checks green
+- Documentation updated
+
+**Merge methods:**
+- **Squash and merge** - For feature branches (cleaner history)
+- **Rebase and merge** - For linear history preference
+- **Merge commit** - For preserving full branch history
+- Choose based on team preference and project needs
+
+**After merge:**
+- Delete feature branch
+- Monitor for issues
+
+## Pull Requests
+
+**PR description:**
+- Clear title
+- What changed and why
+- Link to related issues
+- Breaking changes highlighted
+- Testing instructions
+
+**Before creating:**
+- Self-review your changes
+- All tests pass locally
+- Documentation updated
+- Code formatted and linted
+- No debug code or TODOs
+
+**PR size:**
+- Focused and reasonably sized
+- Split large changes
+- One logical change per PR
+
+**Responding to feedback:**
+- Address all comments
+- Discuss and resolve conversations
+- Re-request review after changes
+
+## Code Review
+
+**What to review:**
+- Functionality correctness
+- Code quality and readability
+- Test coverage adequacy
+- Security and performance
+- Backward compatibility
+
+**Giving feedback:**
+- Be constructive and specific
+- Explain reasoning
+- Suggest alternatives
+- Appreciate good work
+
+**Comment types:**
+- `nit:` - Minor, not blocking
+- `blocking:` - Must fix
+- `question:` - Need clarification
+- `suggestion:` - Optional
+
+**Review timing:**
+- Within 1-2 business days
+- Prioritize urgent changes
+- Balance thoroughness with speed
+
+## Branch Management
+
+**Creating branches:**
+- Branch from main branch
+- Descriptive names
+- Focused purpose
+- Push early
+
+**Protected branch enforcement:**
+- No direct commits to main branches (master/main)
+- No direct commits to development branches (dev/develop)
+- Always require feature branches
+- Always require PR for merging
+
+**Before starting work (AUTOMATIC):**
+1. Check current branch
+2. If on protected branch:
+   - Automatically create feature branch
+   - Choose type based on work context
+   - Inform user: "Created feature branch: `<branch-name>`"
+3. If on feature branch:
+   - Continue work on existing branch
+
+**Cleanup:**
+- Delete after merge
+- Remove stale branches regularly
+
+## CI/CD Workflows
+
+**GitHub Actions workflows:**
+- Always include `workflow_dispatch` trigger
+- Enables manual workflow execution
+- Add alongside other triggers
+
+**Example:**
+```yaml
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+  workflow_dispatch:  # Always include
+```
+
+**Workflow best practices:**
+- Pin action versions
+- Add timeout limits
+- Use secrets for credentials
+- Cache dependencies when possible
+- Keep workflows focused and modular
+
+## GitHub CLI (gh)
+
+Command-line tool for efficient GitHub workflow management.
+
+**Pull requests:**
+- `gh pr create` - Create PR from current branch
+- `gh pr list` - List pull requests
+- `gh pr view [number]` - View PR details
+- `gh pr checkout <number>` - Checkout PR locally
+- `gh pr merge` - Merge pull request
+
+**Workflows and CI/CD:**
+- `gh workflow list` - List repository workflows
+- `gh run list` - List recent workflow runs
+- `gh run view [run-id]` - View run details and logs
+- `gh run watch` - Watch workflow run in real-time
+- `gh run rerun <run-id>` - Rerun failed workflow
+
+**Issues:**
+- `gh issue list` - List issues
+- `gh issue view <number>` - View issue details
+- `gh issue create` - Create new issue
+
+**Repository:**
+- `gh repo view` - View repository details
+- `gh repo clone <repo>` - Clone repository
+
+**Best practices:**
+- Use `gh pr create` for faster workflow
+- Monitor CI with `gh run watch`
+- Use `gh pr checkout` for local PR testing
+
+## Collaboration
+
+**Team communication:**
+- Keep team informed
+- Discuss architectural changes early
+- Ask for help when stuck
+- Share knowledge
+- Communicate breaking changes
+
+**Protect main branches:**
+- Enforce branch protection rules
+- Require status checks
+- Require reviews
+- Prevent force push to main branches
+
+**Note:** Use "master" for new projects, or follow existing project convention (main/dev/develop).

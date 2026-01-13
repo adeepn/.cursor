@@ -1,0 +1,206 @@
+---
+tags: ["rules", "cursor"]
+globs: [".cursor/rules/**/*.mdc"]
+---
+# Rules Management
+
+Guidelines for managing project-specific cursor rules.
+
+## Rule Precedence
+
+**Local rules always override shared rules.**
+
+- Local rules take priority when both address same topic
+- Shared rules provide defaults when no local rule exists
+- No merging - local rule completely replaces shared rule
+- Allows project-specific customizations and experimentation
+
+## Modifying Shared Rules
+
+**Never modify `shared-*.mdc` files directly in projects.**
+
+- Modifications will be overwritten on next sync
+- Creates inconsistency across projects
+- Causes sync conflicts
+
+**Instead:**
+- Create `local-*.mdc` files to override shared rules
+- Update shared rules in central `.cursor/` repository
+- Re-sync to distribute improvements across projects
+
+## Naming Patterns
+
+Use `local-` prefix for project-specific rules.
+
+**Choose pattern based on project architecture:**
+
+**Multi-platform projects** (embedded, cross-platform):
+- Pattern: `local-platform-{name}-{aspect}.mdc`
+- Platform is primary architectural concern
+- Example: `local-platform-esp32-testing.mdc`
+
+**Multi-module projects** (web services, apps):
+- Pattern: `local-{aspect}-{module}.mdc`
+- Cross-cutting concerns span modules
+- Example: `local-testing-backend.mdc`
+
+**Cross-cutting rules** (any project):
+- Pattern: `local-{topic}.mdc`
+- Applies across entire project
+- Example: `local-architecture.mdc`
+
+## Cursor Rules vs Documentation
+
+**Cursor rules guide the AI agent. Documentation guides humans.**
+
+**Belongs in cursor rules (`.cursor/rules/*.mdc`):**
+- Code patterns and conventions agent should follow
+- Naming conventions for variables, functions, classes
+- Architecture patterns and module boundaries
+- Testing approaches and patterns
+- Error handling and logging patterns
+- Code style and formatting rules
+- Build and tooling commands agent needs
+- Agent-specific guidance for code generation
+
+**Belongs in project documentation (README, `/docs`):**
+- API endpoint details, request/response schemas
+- Deployment instructions and infrastructure setup
+- Architecture diagrams and system overviews
+- Installation and environment setup steps
+- User-facing features and usage examples
+- Troubleshooting guides and FAQs
+- Release notes and changelogs
+- Operational runbooks
+
+**Rules should reference documentation, not duplicate it:**
+- "See README.md for API endpoint details"
+- "Follow deployment guide in docs/deployment.md"
+- "Architecture documented in docs/architecture.md"
+
+**Keep cursor rules focused on what agent needs to write good code.**
+
+## When to Create Project Rules
+
+Create project-specific rules when:
+- Tech stack is chosen and patterns emerge
+- Framework or language-specific conventions need documentation
+- Platform-specific practices develop
+- Project architecture decisions are made
+- Architecture evolves (refactoring, new modules, migration)
+- Adding rules to existing project (use `init-cursor-rules` command)
+
+Project rules can be language/framework-specific (unlike shared rules which are universal).
+
+## Project-Specific Topics
+
+Common topics that require local rules:
+- API design patterns for your tech stack
+- Deployment strategies for your infrastructure
+- Hardware abstraction (embedded projects)
+- Platform-specific guidelines (mobile, embedded)
+- Observability and monitoring setup
+- Database schema and conventions
+- Module or service boundaries
+
+Create only what your project needs.
+
+## File Length Guidelines
+
+- **Target**: 50-150 lines for most files
+- **Priority**: Completeness of single aspect over arbitrary limits
+- **One aspect per file** - don't mix testing with security, code quality with deployment
+- **Keep together** - don't artificially split coherent topics for one complicated aspect
+- **Write efficiently** - bullet points, remove verbosity, stay actionable
+
+## Writing Style
+
+**Avoid verbose patterns:**
+- DO/DON'T lists with checkmarks, "Benefits" sections, "Summary" recaps
+- "Best Practices" with redundant bullets, "Migration Checklist" todo lists
+- "Troubleshooting" guides (belong in docs, not rules)
+
+**Write efficiently:**
+- Demonstrate through examples, not exhaustive antipattern lists
+- Focus on actionable guidance
+- Keep concise and direct
+
+## Avoiding Redundancy Across Rules
+
+**Don't duplicate shared rules. Don't duplicate between local rules.**
+
+**Local rules should extend or override shared rules, never duplicate them:**
+- Shared rules already provide universal guidelines
+- Only create local rules for project-specific details not covered by shared rules
+- If shared rule covers it, don't repeat it in local rule
+- Local rules override shared rules by precedence, not by copying content
+
+**Where to put project-specific concepts:**
+- Place in the most relevant local rule file
+- Cross-reference from related local rules when needed
+- Don't repeat the same guideline in multiple local files
+
+**Common overlaps to avoid:**
+- Testing standards vs Security practices - testing security features belongs in security, not testing
+- Code quality vs Development workflow - code style in quality, workflow processes in development
+- Architecture vs Module-specific rules - architecture decisions in architecture, module details in module rules
+- Documentation vs Code quality - doc standards in documentation, code comments in quality
+
+**Cross-referencing instead of duplicating:**
+- Reference shared rules: "Follow security testing guidelines from shared-security-practices.mdc"
+- Reference local rules: "See local-architecture.mdc for service boundaries"
+- Don't copy-paste guidelines from other rule files
+
+**Resolving duplication in local rules:**
+- Keep guideline in most relevant local file only
+- Remove or replace with cross-reference in other local files
+- If covered by shared rule, remove from local rule entirely
+- If truly cross-cutting, choose primary owner and reference from others
+
+## Targeting Rules to Files
+
+Use YAML frontmatter to control which files each rule applies to.
+
+**Add tags for categorization:**
+- Helps organize rules by language, framework, or concern
+- Examples: `["python", "backend"]`, `["typescript", "frontend"]`
+
+**Add globs to target specific files:**
+- Match by file type: `["**/*.c", "**/*.h"]`
+- Match by directory: `["backend/**/*"]`
+- Multiple patterns: `["api/**/*.py", "services/**/*.py"]`
+- Exclude patterns: `["src/**/*.ts", "!**/*.test.ts"]`
+
+Test your globs against actual project files to verify they match intended targets.
+
+## Maintenance
+
+Keep project rules up to date:
+- Update when tech stack evolves
+- Review when adding modules/platforms
+- Remove when components are deprecated
+- Review quarterly for relevance
+
+## .cursor/ Folder Scope
+
+**One `.cursor/` folder per git repository.**
+
+✅ **Valid**: Each git repository has its own `.cursor/`
+- Main repository: `.cursor/`
+- Git submodule A: `submodules/lib-a/.cursor/`
+- Git submodule B: `submodules/lib-b/.cursor/`
+
+❌ **Invalid**: Multiple `.cursor/` folders in same repository
+- Causes unclear IDE behavior
+- Creates unpredictable precedence
+- Increases maintenance complexity
+
+**Instead of nested folders, use:**
+- Glob patterns to target subdirectories
+- Module-specific rule files (`local-backend.mdc`, `local-frontend.mdc`)
+- Tags to organize rules within single `.cursor/rules/`
+
+**If you find nested `.cursor/` folders:**
+1. Check if subdirectory is git submodule (valid if yes)
+2. If same repo, consolidate into root `.cursor/` with globs/tags
+3. Sync each git repository's `.cursor/` independently
