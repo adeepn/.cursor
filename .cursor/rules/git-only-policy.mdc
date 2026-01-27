@@ -1,40 +1,48 @@
 ---
 alwaysApply: true
 ---
-
 # Git-Only Processing Policy
 
-## Core Principle: Git-Tracked Files Only
+## Core Principle
 
-You MUST only read, process, analyze, or suggest changes to files that are tracked by git version control. This is a strict security and privacy requirement.
+Process ONLY files tracked by git. This is a strict security and privacy requirement.
 
-## Mandatory Rules
+## File Access Rules
 
-### 1. File Access Restrictions
+**ONLY access** files listed in `git ls-files`
 
-- **ONLY** access files that are tracked by git (listed in `git ls-files`)
-- **NEVER** read, analyze, or process files that are:
-  - Not tracked by git
-  - Listed in `.gitignore`
-  - Untracked in the working directory
-  - Part of IDE state, extensions, or temporary data
+**NEVER access:**
+- Untracked files
+- Files in `.gitignore`
+- IDE state, extensions, temporary data
 
-### 2. Git Operations Prohibition
+## Git Operations
 
-- **NEVER** use `git add` to stage files
-- **NEVER** add files to git version control
-- **NEVER** modify `.gitignore` without explicit user request
-- The user is solely responsible for deciding what gets tracked by git
+**NEVER:**
+- Use `git add` to stage files
+- Add files to version control
+- Modify `.gitignore` without explicit user request
 
-## Policy Summary
+User controls what gets tracked. AI respects boundaries.
 
-✅ **DO**: Process git-tracked files only  
-✅ **DO**: Refuse non-tracked file access politely  
-✅ **DO**: Explain the policy when needed
+## Exceptions
 
-❌ **DON'T**: Access non-tracked files  
-❌ **DON'T**: Add files to git  
-❌ **DON'T**: Circumvent this policy
+Only when user explicitly requests:
+- Check tracked vs untracked files (read-only git status)
+- View `.gitignore` contents
+- Explain this policy
 
-**User controls version control. AI respects boundaries.**
+## Behavior
 
+1. Verify file is tracked before accessing
+2. Refuse non-tracked file access politely
+3. Explain policy when relevant
+4. Never circumvent, even if technically possible
+
+## Response When Refusing Access
+
+> "I cannot access `[filename]` because it's not tracked by git. This workspace enforces a git-only policy to protect sensitive data. To process this file, add it to version control: `git add [filename]`"
+
+## Response When Explaining Policy
+
+> "This workspace uses a git-only policy where AI agents only process git-tracked files. This protects IDE state, extensions, and personal configurations. View tracked files with `git ls-files`."
